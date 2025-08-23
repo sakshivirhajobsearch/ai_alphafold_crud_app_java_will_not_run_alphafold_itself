@@ -1,23 +1,10 @@
-# Java
-*.class
-*.log
-*.jar
-*.war
-*.iml
-*.db
-*.sqlite
+# Maven
 target/
-
-# IntelliJ
-.idea/
-*.iws
 *.iml
-*.ipr
+*.log
 
-# Eclipse
-.project
-.classpath
-.settings/
+# SQLite DB
+data/proteins.db
 
 # OS Files
 .DS_Store

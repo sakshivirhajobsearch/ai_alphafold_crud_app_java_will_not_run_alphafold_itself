@@ -1,16 +1,35 @@
 package ai.alphafold.crud.app;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.util.List;
 
-/*Here’s a complete guide to creating a simple CRUD(Create,Read,Update,Delete)operation project in a Java-based application focused on AI-specialized AlphaFold data,which might involve protein structure predictions.
+import ai.alphafold.crud.app.dao.ProteinDAO;
+import ai.alphafold.crud.app.model.Protein;
 
-This project won’t run AlphaFold itself(since AlphaFold is a complex Python-based deep learning model),but will manage its prediction metadata or results via a Java CRUD backend—which is more practical for most Java developers.The backend will simulate AlphaFold results in a database.*/
-
-@SpringBootApplication
 public class AlphafoldCrudAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AlphafoldCrudAppApplication.class, args);
+		ProteinDAO dao = new ProteinDAO();
+
+		System.out.println("=== Creating Proteins ===");
+		dao.addProtein(new Protein("Hemoglobin", "MVHLTPEEKSAV", "Alpha-helix"));
+		dao.addProtein(new Protein("Myoglobin", "GLSDGEWQLVL", "Beta-sheet"));
+
+		System.out.println("=== Reading All Proteins ===");
+		List<Protein> proteins = dao.getAllProteins();
+		proteins.forEach(p -> System.out
+				.println(p.getId() + ": " + p.getName() + " | " + p.getSequence() + " | " + p.getPredictedStructure()));
+
+		System.out.println("=== Updating Protein ===");
+		dao.updateProtein(1, "Updated Alpha-helix");
+
+		System.out.println("=== Reading After Update ===");
+		dao.getAllProteins()
+				.forEach(p -> System.out.println(p.getId() + ": " + p.getName() + " | " + p.getPredictedStructure()));
+
+		System.out.println("=== Deleting Protein with ID 2 ===");
+		dao.deleteProtein(2);
+
+		System.out.println("=== Final Protein List ===");
+		dao.getAllProteins().forEach(p -> System.out.println(p.getId() + ": " + p.getName()));
 	}
 }
